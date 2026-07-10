@@ -1,26 +1,147 @@
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import {useState} from "react";
 
+const revenueSparkline = [
+  { name: 'Day 1', value: 15 }, { name: 'Day 2', value: 25 }, 
+  { name: 'Day 3', value: 20 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 40 }, { name: 'Day 6', value: 60 }
+];
 
-const customerData = [
-  { id: 1, name: 'Sentry Analytics', email: 'hello@sentry.com', plan: 'Enterprise', mrr: '$12,000', status: 'Active', joined: 'May 12, 2023', lastActive: '2m ago', spend: '$144,000' },
-  { id: 2, name: 'Globex Corporation', email: 'billing@globex.com', plan: 'Pro', mrr: '$8,500', status: 'Active', joined: 'Apr 3, 2023', lastActive: '1h ago', spend: '$102,000' },
-  { id: 3, name: 'Initech', email: 'contact@initech.com', plan: 'Business', mrr: '$6,250', status: 'Active', joined: 'Jan 18, 2023', lastActive: '5h ago', spend: '$75,000' },
-  { id: 4, name: 'Soylent Corp.', email: 'admin@soylent.com', plan: 'Pro', mrr: '$4,800', status: 'Active', joined: 'Feb 7, 2023', lastActive: '1d ago', spend: '$57,600' },
-  { id: 5, name: 'Hooli', email: 'team@hooli.com', plan: 'Business', mrr: '$4,200', status: 'Active', joined: 'Mar 21, 2023', lastActive: '2h ago', spend: '$50,400' },
-  { id: 6, name: 'Aperture Science', email: 'support@aperture.com', plan: 'Pro', mrr: '$3,600', status: 'Active', joined: 'Apr 28, 2023', lastActive: '3d ago', spend: '$43,200' },
-  { id: 7, name: 'Vandelay Industries', email: 'info@vandelay.com', plan: 'Starter', mrr: '$1,200', status: 'Trial', joined: 'May 20, 2024', lastActive: '10m ago', spend: '$1,200' },
+const churnSparkline = [
+  { name: 'Day 1', value: 60 }, { name: 'Day 2', value: 50 }, 
+  { name: 'Day 3', value: 40 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 20 }, { name: 'Day 6', value: 10 }
+];
+
+const usersSparkline = [
+  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 35 }, 
+  { name: 'Day 3', value: 15 }, { name: 'Day 4', value: 45 }, 
+  { name: 'Day 5', value: 25 }, { name: 'Day 6', value: 45 }
 ];
 
 
-export function Customers(){
+const signupsSparkline = [
+  { name: 'Day 1', value: 5 }, { name: 'Day 2', value: 8 }, 
+  { name: 'Day 3', value: 10 }, { name: 'Day 4', value: 6 }, 
+  { name: 'Day 5', value: 20 }, { name: 'Day 6', value: 35 }
+];
+
+const sessionsSparkline = [
+  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 12 }, 
+  { name: 'Day 3', value: 8 }, { name: 'Day 4', value: 15 }, 
+  { name: 'Day 5', value: 18 }, { name: 'Day 6', value: 36 }
+];
+
+
+const subscriptionData = [
+  { 
+    id: 1, 
+    name: 'Sentry Analytics', 
+    email: 'hello@sentry.com', 
+    plan: 'Enterprise', 
+    mrr: '$12,000', 
+    status: 'Active', 
+    billingCycle: 'Yearly', 
+    nextBilling: 'Dec 15, 2024', 
+    joined: 'May 12, 2023' 
+  },
+  { 
+    id: 2, 
+    name: 'Globex Corporation', 
+    email: 'billing@globex.com', 
+    plan: 'Pro', 
+    mrr: '$8,500', 
+    status: 'Active', 
+    billingCycle: 'Monthly', 
+    nextBilling: 'Oct 03, 2024', 
+    joined: 'Apr 3, 2023' 
+  },
+  { 
+    id: 3, 
+    name: 'Initech', 
+    email: 'contact@initech.com', 
+    plan: 'Business', 
+    mrr: '$6,250', 
+    status: 'Past Due', 
+    billingCycle: 'Quarterly', 
+    nextBilling: 'Sep 18, 2024', 
+    joined: 'Jan 18, 2023' 
+  },
+  { 
+    id: 4, 
+    name: 'Soylent Corp.', 
+    email: 'admin@soylent.com', 
+    plan: 'Pro', 
+    mrr: '$4,800', 
+    status: 'Active', 
+    billingCycle: 'Monthly', 
+    nextBilling: 'Nov 07, 2024', 
+    joined: 'Feb 7, 2023' 
+  },
+  { 
+    id: 5, 
+    name: 'Hooli', 
+    email: 'team@hooli.com', 
+    plan: 'Business', 
+    mrr: '$4,200', 
+    status: 'Active', 
+    billingCycle: 'Yearly', 
+    nextBilling: 'Mar 21, 2025', 
+    joined: 'Mar 21, 2023' 
+  },
+  { 
+    id: 6, 
+    name: 'Aperture Science', 
+    email: 'support@aperture.com', 
+    plan: 'Pro', 
+    mrr: '$3,600', 
+    status: 'Canceled', 
+    billingCycle: 'Monthly', 
+    nextBilling: 'N/A', 
+    joined: 'Apr 28, 2023' 
+  },
+  { 
+    id: 7, 
+    name: 'Vandelay Industries', 
+    email: 'info@vandelay.com', 
+    plan: 'Starter', 
+    mrr: '$1,200', 
+    status: 'Trial', 
+    billingCycle: 'Monthly', 
+    nextBilling: 'Dec 20, 2024', 
+    joined: 'May 20, 2024' 
+  },
+];
+
+function KpiSparkline({ data }: { data: { name: string; value: number }[] }) {
+  return (
+    <div style={{ width: '100%', height: '100%', minHeight: '32px' }}> 
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data}>
+          <XAxis dataKey="name" hide />
+          <YAxis hide />
+          <Area 
+            type="linear" 
+            dataKey="value" 
+            stroke="#818cf8" 
+            strokeWidth={2} 
+            fill="#818cf8" 
+            fillOpacity={0.15}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+export function Subscriptions(){
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate()
     
-      const filteredData = customerData.filter((customer) =>
+      const filteredData = subscriptionData.filter((customer) =>
     customer.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  );  
     return (
         <div className="app-container">
       <aside className="sidebar">
@@ -39,9 +160,9 @@ export function Customers(){
             <span className="icon"> 
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg></span> 
             Analytics</div>
-          <div className="nav-item active"><span className="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM247-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm466 0q-47 47-113 47-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113q0 66-47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q440-607 440-640t-23.5-56.5Q393-720 360-720t-56.5 23.5Q280-673 280-640t23.5 56.5Q327-560 360-560t56.5-23.5ZM360-240Zm0-400Z"/></svg>
+          <div className="nav-item" onClick={()=> navigate("/customers")}><span className="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM247-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm466 0q-47 47-113 47-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113q0 66-47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q440-607 440-640t-23.5-56.5Q393-720 360-720t-56.5 23.5Q280-673 280-640t23.5 56.5Q327-560 360-560t56.5-23.5ZM360-240Zm0-400Z"/></svg>
           </span> Customers</div>
-          <div className="nav-item" onClick={()=> navigate("/subscriptions")}><span className="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-80q-33 0-56.5-23.5T80-160v-400q0-33 23.5-56.5T160-640h640q33 0 56.5 23.5T880-560v400q0 33-23.5 56.5T800-80H160Zm0-80h640v-400H160v400Zm240-40 240-160-240-160v320ZM160-680v-80h640v80H160Zm120-120v-80h400v80H280ZM160-160v-400 400Z"/></svg></span> 
+          <div className="nav-item active"><span className="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M160-80q-33 0-56.5-23.5T80-160v-400q0-33 23.5-56.5T160-640h640q33 0 56.5 23.5T880-560v400q0 33-23.5 56.5T800-80H160Zm0-80h640v-400H160v400Zm240-40 240-160-240-160v320ZM160-680v-80h640v80H160Zm120-120v-80h400v80H280ZM160-160v-400 400Z"/></svg></span> 
           Subscriptions</div>
           <div className="nav-item" onClick={()=> navigate("/invoices")}><span className="icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M120-80v-800l60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60v800l-60-60-60 60-60-60-60 60-60-60-60 60-60-60-60 60-60-60-60 60-60-60-60 60Zm120-200h480v-80H240v80Zm0-160h480v-80H240v80Zm0-160h480v-80H240v80Zm-40 404h560v-568H200v568Zm0-568v568-568Z"/></svg></span> 
           Invoices</div>
@@ -90,40 +211,45 @@ export function Customers(){
               Export
             </button>
           </div>
-          </header>
+        </header>
 
         <section className="kpi-grid-analytics">
         {[
-        { 
-        title: 'Total Customers', 
-        value: '2,845', 
-        change: '+13.6%', 
-        type: 'positive',
-        },
-        { 
-        title: 'Paying Customers', 
-        value: '2,185', 
-        change: '+9%', 
-        type: 'positive',
-        },
-        { 
-        title: 'MRR from Customers', 
-        value: '$128,340', 
-        change: '+12.5%', 
-        type: 'positive',
-        },
-        { 
-        title: 'Avg. Revenue Per User', 
-        value: '$100', 
-        change: '+5.7%', 
-        type: 'positive',
-        },
-        { 
-        title: 'Churn Rate', 
-        value: '2.43%', 
-        change: '-0.8pp', 
-        type: 'negative',
-        }
+            { 
+            title: 'MRR', 
+            value: '$128,340', 
+            change: '+12.5%', 
+            type: 'positive',
+            data: revenueSparkline  
+            }, 
+            { 
+            title: 'Active Subscriptions', 
+            value: '1,845', 
+            change: '+8.4%', 
+            type: 'positive',
+            data: usersSparkline   
+            },
+            { 
+            title: 'Net New MRR', 
+            value: '$15,680', 
+            change: '+15.3%', 
+            type: 'positive',
+            data: signupsSparkline  
+            },
+            { 
+            title: 'Churn Rate', 
+            value: '2.43%', 
+            change: '-0.8pp', 
+            type: 'negative',
+            data: churnSparkline    
+            },
+            {
+                title: 'Revenue Retention',
+                value: '97.6%',
+                change: '+1.2pp',
+                type: 'positive',
+                data: sessionsSparkline
+            }
         ].map((card, i) => (
             <div key={i} className="kpi-card">
             <div className="kpi-header">
@@ -132,12 +258,14 @@ export function Customers(){
             </div>
             <div className="kpi-value">{card.value}</div>
             <div className={`kpi-change ${card.type}`}>{card.change}</div>
-
+            <div className="kpi-sparkline">
+                <KpiSparkline data={card.data} />
+            </div>
             </div>
         ))}
         </section>
 
-   <div className="customer-page-container">
+    <div className="customer-page-container">
       
       <div className="customer-controls">
         <div className="search-wrapper">
@@ -156,26 +284,24 @@ export function Customers(){
           <button className="sort-btn">Sort: Recently Added</button>
         </div>
       </div>
-
-      <div className="customer-table-wrapper">
+        
+         <div className="customer-table-wrapper">
         <table className="pro-customer-table">
-          <thead>
+            <thead>
             <tr>
-              <th><input type="checkbox" /></th>
-              <th>Customer</th>
-              <th>Plan</th>
-              <th>MRR</th>
-              <th>Status</th>
-              <th>Joined</th>
-              <th>Last Active</th>
-              <th>Total Spend</th>
-              <th></th>
+                <th>Customer</th>
+                <th>Plan</th>
+                <th>MRR</th>
+                <th>Status</th>
+                <th>Billing Cycle</th>
+                <th>Next Billing</th>
+                <th>Started</th>
+                <th></th>
             </tr>
-          </thead>
+            </thead>
           <tbody>
             {filteredData.map((row) => (
               <tr key={row.id}>
-                <td><input type="checkbox" /></td>
                 <td>
                   <div className="cust-info">
                     <div className="cust-avatar-table">{row.name.charAt(0)}</div>
@@ -193,9 +319,9 @@ export function Customers(){
                     {row.status}
                   </span>
                 </td>
+                <td>{row.billingCycle}</td>
+                <td>{row.nextBilling}</td>
                 <td>{row.joined}</td>
-                <td>{row.lastActive}</td>
-                <td>{row.spend}</td>
                 <td className="actions-cell">⋮</td>
               </tr>
             ))}
@@ -215,7 +341,8 @@ export function Customers(){
           <button className="page-btn">›</button>
         </div>
       </div>
-    </div>       
+      </div>
+        
         </main>
 
     </div>
