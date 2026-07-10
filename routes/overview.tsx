@@ -1,10 +1,31 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ComposedChart, CartesianGrid, Bar, Line } from 'recharts';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
-const sparklineData = [
-  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 25 }, 
-  { name: 'Day 3', value: 7 }, { name: 'Day 4', value: 40 }, 
-  { name: 'Day 5', value: 30 }, { name: 'Day 6', value: 60 }
+
+const revenueSparkline = [
+  { name: 'Day 1', value: 15 }, { name: 'Day 2', value: 25 }, 
+  { name: 'Day 3', value: 20 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 40 }, { name: 'Day 6', value: 60 }
+];
+
+const churnSparkline = [
+  { name: 'Day 1', value: 60 }, { name: 'Day 2', value: 50 }, 
+  { name: 'Day 3', value: 40 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 20 }, { name: 'Day 6', value: 10 }
+];
+
+const usersSparkline = [
+  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 35 }, 
+  { name: 'Day 3', value: 15 }, { name: 'Day 4', value: 45 }, 
+  { name: 'Day 5', value: 25 }, { name: 'Day 6', value: 45 }
+];
+
+
+const signupsSparkline = [
+  { name: 'Day 1', value: 5 }, { name: 'Day 2', value: 8 }, 
+  { name: 'Day 3', value: 10 }, { name: 'Day 4', value: 15 }, 
+  { name: 'Day 5', value: 35 }, { name: 'Day 6', value: 65 }
 ];
 
 const revenueData = [
@@ -22,11 +43,11 @@ const revenueData = [
   { month: 'May', revenue: 115000, mrr: 142000 },
 ];
 
-function KpiSparkline() {
+function KpiSparkline({ data }: { data: { name: string; value: number }[] }) {
   return (
-    <div style={{ width: '100%', height: '30px' }}> 
+    <div style={{ width: '100%', height: '100%', minHeight: '32px' }}> 
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={sparklineData}>
+        <AreaChart data={data}>
           <XAxis dataKey="name" hide />
           <YAxis hide />
           <Area 
@@ -34,6 +55,8 @@ function KpiSparkline() {
             dataKey="value" 
             stroke="#818cf8" 
             strokeWidth={2} 
+            fill="#818cf8" 
+            fillOpacity={0.15}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -136,7 +159,6 @@ const navigate = useNavigate()
               <div className="user-name">John Doe</div>
               <div className="user-email">john@metrica.com</div>
             </div>
-            <div className="chevron">⌄</div>
           </div>
         </div>
       </aside>
@@ -164,24 +186,48 @@ const navigate = useNavigate()
         </header>
 
         <section className="kpi-grid">
-          {[
-            { title: 'Monthly Recurring Revenue', value: '$128,340', change: '+12.5%', type: 'positive' },
-            { title: 'Churn Rate', value: '2.43%', change: '-0.8pp', type: 'negative' },
-            { title: 'Active Users', value: '24,876', change: '+8.2%', type: 'positive' },
-            { title: 'New Signups', value: '1,429', change: '+15.3%', type: 'positive' }
-          ].map((card, i) => (
+        {[
+            { 
+            title: 'Monthly Revenue', 
+            value: '$128,340', 
+            change: '+12.5%', 
+            type: 'positive',
+            data: revenueSparkline  
+            },
+            { 
+            title: 'Churn Rate', 
+            value: '2.43%', 
+            change: '-0.8pp', 
+            type: 'negative',
+            data: churnSparkline    
+            },
+            { 
+            title: 'Active Users', 
+            value: '24,876', 
+            change: '+8.2%', 
+            type: 'positive',
+            data: usersSparkline   
+            },
+            { 
+            title: 'New Signups', 
+            value: '1,429', 
+            change: '+15.3%', 
+            type: 'positive',
+            data: signupsSparkline  
+            }
+        ].map((card, i) => (
             <div key={i} className="kpi-card">
-              <div className="kpi-header">
+            <div className="kpi-header">
                 <span className="kpi-title">{card.title}</span>
-                <span className="kpi-icon">$</span>
-              </div>
-              <div className="kpi-value">{card.value}</div>
-              <div className={`kpi-change ${card.type}`}>{card.change}</div>
-              <div className="kpi-sparkline">
-                <KpiSparkline />
-              </div>
+                <span className="kpi-icon-badge">$</span>
             </div>
-          ))}
+            <div className="kpi-value">{card.value}</div>
+            <div className={`kpi-change ${card.type}`}>{card.change}</div>
+            <div className="kpi-sparkline">
+                <KpiSparkline data={card.data} />
+            </div>
+            </div>
+        ))}
         </section>
 
         <section className="two-col-grid">
@@ -214,7 +260,7 @@ const navigate = useNavigate()
                 </div>
               ))}
             </div>
-            <a href="#" className="panel-link">View all signups →</a>
+            <Link to="/customers" className="panel-link">View all signups →</Link>
           </div>
         </section>
 
@@ -250,28 +296,43 @@ const navigate = useNavigate()
             </table>
           </div>
 
-          <div className="panel doughnut-panel">
-            <h3 className="panel-title">MRR Breakdown</h3>
-            <div className="doughnut-wrapper">
-              
-              <div className="legend">
-                {[
-                  { label: 'Enterprise', pct: '39.1%', val: '$50,200', color: '#6366f1' },
-                  { label: 'Pro', pct: '28.7%', val: '$36,800', color: '#8b5cf6' },
-                  { label: 'Business', pct: '20.4%', val: '$26,200', color: '#a78bfa' },
-                  { label: 'Starter', pct: '7.8%', val: '$10,000', color: '#c7d2fe' },
-                ].map((item, i) => (
-                  <div key={i} className="legend-item">
-                    <div className="legend-color" style={{backgroundColor: item.color}}></div>
-                    <div className="legend-label">{item.label}</div>
-                    <div className="legend-val">{item.pct}</div>
-                    <div className="legend-val">{item.val}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <a href="#" className="panel-link">View full breakdown →</a>
-          </div>
+                <div className="panel doughnut-panel">
+                    <h3 className="panel-title">MRR Breakdown</h3>
+                <div className="doughnut-wrapper">
+                {/* ----- THE MISSING DONUT ----- */}
+                <div className="mock-doughnut-container">
+                    <div className="mock-doughnut" style={{ 
+                    background: `conic-gradient(
+                        #6366f1 0% 39.1%, 
+                        #8b5cf6 39.1% 67.8%, 
+                        #a78bfa 67.8% 88.2%, 
+                        #c7d2fe 88.2% 100%
+                    )` 
+                    }}>
+                    <div className="doughnut-hole">
+                        <span className="doughnut-total">$128,340</span>
+                        <span className="doughnut-label">Total MRR</span>
+                    </div>
+                    </div>
+                </div>
+
+                <div className="legend">
+                    {[
+                    { label: 'Enterprise', pct: '39.1%', val: '$50,200', color: '#6366f1' },
+                    { label: 'Pro', pct: '28.7%', val: '$36,800', color: '#8b5cf6' },
+                    { label: 'Business', pct: '20.4%', val: '$26,200', color: '#a78bfa' },
+                    { label: 'Starter', pct: '7.8%', val: '$10,000', color: '#c7d2fe' },
+                    ].map((item, i) => (
+                    <div key={i} className="legend-item">
+                        <div className="legend-color" style={{backgroundColor: item.color}}></div>
+                        <div className="legend-label">{item.label}</div>
+                        <div className="legend-val">{item.pct}</div>
+                        <div className="legend-val">{item.val}</div>
+                    </div>
+                    ))}
+                </div>
+                </div>
+                </div>
         </section>
 
       </main>

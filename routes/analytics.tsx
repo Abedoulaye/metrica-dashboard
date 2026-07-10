@@ -1,5 +1,138 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ComposedChart, CartesianGrid, Bar, Line } from 'recharts';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
+
+const revenueSparkline = [
+  { name: 'Day 1', value: 15 }, { name: 'Day 2', value: 25 }, 
+  { name: 'Day 3', value: 20 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 40 }, { name: 'Day 6', value: 60 }
+];
+
+const churnSparkline = [
+  { name: 'Day 1', value: 60 }, { name: 'Day 2', value: 50 }, 
+  { name: 'Day 3', value: 40 }, { name: 'Day 4', value: 35 }, 
+  { name: 'Day 5', value: 20 }, { name: 'Day 6', value: 10 }
+];
+
+const usersSparkline = [
+  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 35 }, 
+  { name: 'Day 3', value: 15 }, { name: 'Day 4', value: 45 }, 
+  { name: 'Day 5', value: 25 }, { name: 'Day 6', value: 45 }
+];
+
+const conversionSparkline = [
+  { name: 'Day 1', value: 20 }, { name: 'Day 2', value: 25 }, 
+  { name: 'Day 3', value: 22 }, { name: 'Day 4', value: 28 }, 
+  { name: 'Day 5', value: 32 }, { name: 'Day 6', value: 38 }
+];
+
+const sessionsSparkline = [
+  { name: 'Day 1', value: 10 }, { name: 'Day 2', value: 12 }, 
+  { name: 'Day 3', value: 8 }, { name: 'Day 4', value: 15 }, 
+  { name: 'Day 5', value: 18 }, { name: 'Day 6', value: 55 }
+];
+
+
+function KpiSparkline({ data }: { data: { name: string; value: number }[] }) {
+  return (
+    <div style={{ width: '100%', height: '100%', minHeight: '30px' }}> 
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={data}>
+          <XAxis dataKey="name" hide />
+          <YAxis hide />
+          <Area 
+            dataKey="value" 
+            stroke="#1e40af"        
+            fill="#1e40af"      
+            fillOpacity={0.15}     
+            strokeWidth={1} 
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+const revenueData = [
+  { month: 'Jun', revenue: 170000, mrr: 240000 },
+  { month: 'Jul', revenue: 160000, mrr: 220000 },
+  { month: 'Aug', revenue: 180000, mrr: 250000 },
+  { month: 'Sep', revenue: 140000, mrr: 210000 },
+  { month: 'Oct', revenue: 190000, mrr: 260000 },
+  { month: 'Nov', revenue: 175000, mrr: 230000 },
+  { month: 'Dec', revenue: 200000, mrr: 280000 },
+  { month: 'Jan', revenue: 195000, mrr: 270000 },
+  { month: 'Feb', revenue: 220000, mrr: 300000 },
+  { month: 'Mar', revenue: 210000, mrr: 290000 },
+  { month: 'Apr', revenue: 230000, mrr: 320000 },
+  { month: 'May', revenue: 240000, mrr: 310000 },
+];
+
+function RevenueOverTime() {
+  return (
+    <div style={{ width: '100%', height: '160px', minHeight: '110px' }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart 
+          data={revenueData} 
+          margin={{ top: 10, right: 20, bottom: 10, left: 0 }}
+        >
+          <CartesianGrid stroke="#f1f5f9" vertical={true} />
+          
+          <XAxis 
+            dataKey="month" 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{ fontSize: 12, fill: '#94a3b8' }}
+          />
+          
+          <YAxis 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{ fontSize: 12, fill: '#94a3b8' }}
+            tickFormatter={(value) => `$${value / 1000}k`} 
+            domain={[0, 'auto']} 
+          />
+
+          <Tooltip 
+            contentStyle={{ backgroundColor: '#1e293b', color: '#fff', border: 'none', borderRadius: '6px' }}
+            itemStyle={{ color: '#e2e8f0' }}
+          />
+
+          <Bar 
+            dataKey="revenue" 
+            barSize={20} 
+            maxBarSize={28} 
+            fill="#1e40af"           
+            radius={[4, 4, 0, 0]} 
+          />
+
+          <Line 
+            type="linear"
+            dataKey="mrr" 
+            stroke="#1e40af"         
+            strokeWidth={2}
+            strokeDasharray="5 5"
+            dot={false}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+const trafficData = [
+  { label: 'Organic Search', pct: '45.2%', val: '35,680', color: '#1e40af' },
+  { label: 'Direct', pct: '28.7%', val: '22,640', color: '#3b82f6' },
+  { label: 'Social Media', pct: '16.4%', val: '12,940', color: '#93c5fd' },
+  { label: 'Referral', pct: '9.7%', val: '7,650', color: '#bfdbfe' },
+];
+
+const recentEvents = [
+  { user: 'Olivia Rhye', action: 'started a new session', time: '2m ago', initial: 'OR' },
+  { user: 'Phoenix Baker', action: 'completed onboarding', time: '12m ago', initial: 'PB' },
+  { user: 'Lana Steiner', action: 'upgraded to Pro', time: '1h ago', initial: 'LS' },
+  { user: 'Demi Wilkinson', action: 'converted from trial', time: '2h ago', initial: 'DW' },
+];
 
 
 export function Analytics(){
@@ -49,7 +182,6 @@ export function Analytics(){
               <div className="user-name">John Doe</div>
               <div className="user-email">john@metrica.com</div>
             </div>
-            <div className="chevron">⌄</div>
           </div>
         </div>
       </aside>
@@ -76,6 +208,123 @@ export function Analytics(){
           </div>
           </header>
 
+        <section className="kpi-grid-analytics">
+        {[
+            { 
+            title: 'Total Revenue', 
+            value: '$1,284,500', 
+            change: '+12.5%', 
+            type: 'positive',
+            data: revenueSparkline
+            },
+            { 
+            title: 'Churn Rate', 
+            value: '2.43%', 
+            change: '-0.8pp', 
+            type: 'negative',
+            data: churnSparkline
+            },
+            { 
+            title: 'Active Users', 
+            value: '24,876', 
+            change: '+8.2%', 
+            type: 'positive',
+            data: usersSparkline
+            },
+            { 
+            title: 'Conversion Rate', 
+            value: '3.92%', 
+            change: '+15.3%', 
+            type: 'positive',
+            data: conversionSparkline
+            },
+            { 
+            title: 'Sessions', 
+            value: '78,987', 
+            change: '+11.3%', 
+            type: 'positive',
+            data: sessionsSparkline
+            }
+        ].map((card, i) => (
+            <div key={i} className="kpi-card">
+            <div className="kpi-header">
+                <span className="kpi-title">{card.title}</span>
+                <span className="kpi-icon-badge">$</span>
+            </div>
+            <div className="kpi-value">{card.value}</div>
+            <div className={`kpi-change ${card.type}`}>{card.change}</div>
+            <div className="kpi-sparkline">
+                <KpiSparkline data={card.data} />
+            </div>
+            </div>
+        ))}
+        </section>
+
+        <section className="two-col-grid" style={{ gridTemplateColumns: '1fr' }}>
+        <div className="panel main-chart-panel">
+            <div className="panel-header">
+            <h3>Revenue Over Time</h3>
+            <select className="panel-select"><option>Monthly</option></select>
+            </div>
+            <div className="chart-area" style={{ flex: 1, width: '100%', height: '100%' }}>
+            <RevenueOverTime />
+            </div>
+        </div>
+        </section>
+        
+        <section className="two-col-grid">
+        
+        <div className="panel doughnut-panel">
+            <h3 className="panel-title">Traffic Sources</h3>
+            <div className="doughnut-wrapper">
+            
+            <div className="mock-doughnut-container">
+                <div className="mock-doughnut" style={{ 
+                background: `conic-gradient(
+                    #1e40af 0% 45%, 
+                    #3b82f6 45% 74%, 
+                    #93c5fd 74% 90%, 
+                    #bfdbfe 90% 100%
+                )` 
+                }}>
+                <div className="doughnut-hole">
+                    <span className="doughnut-total">78,910</span>
+                    <span className="doughnut-label">Total Sessions</span>
+                </div>
+                </div>
+            </div>
+
+            <div className="legend">
+                {trafficData.map((item, i) => (
+                <div key={i} className="legend-item">
+                    <div className="legend-color" style={{ backgroundColor: item.color }}></div>
+                    <div className="legend-label">{item.label}</div>
+                    <div className="legend-val">{item.pct}</div>
+                    <div className="legend-val">{item.val}</div>
+                </div>
+                ))}
+            </div>
+            </div>
+        </div>
+
+        <div className="panel side-list-panel">
+            <h3 className="panel-title">Recent Events</h3>
+            <div className="signup-list">
+            {recentEvents.map((event, i) => (
+                <div key={i} className="signup-item">
+                <div className="user-avatar-small">{event.initial}</div>
+                <div className="user-details">
+                    <div className="user-name-small">{event.user}</div>
+                    <div className="user-email-small">{event.action}</div>
+                </div>
+                <div className="user-time">{event.time}</div>
+                </div>
+            ))}
+            </div>
+                <Link to="/reports" className="panel-link">View all events →</Link>
+        </div>
+
+        </section>
           </main>
 
     </div>  
