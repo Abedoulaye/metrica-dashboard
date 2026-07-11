@@ -5,6 +5,7 @@ import { Customers } from "../routes/customers";
 import { Subscriptions } from "../routes/subscriptions";
 import { Invoices } from "../routes/invoices";
 import { Products } from "../routes/products";
+import { Settings } from "../routes/settings";
 
 export default function Dashboard() {
   return (
@@ -16,6 +17,7 @@ export default function Dashboard() {
         <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/invoices" element={<Invoices />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   );
