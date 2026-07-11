@@ -248,20 +248,7 @@ export function Invoices() {
             </span>
             Products
           </div>
-          <div className="nav-item" onClick={() => navigate("/reports")}>
-            <span className="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="currentColor"
-              >
-                <path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z" />
-              </svg>
-            </span>
-            Reports
-          </div>
+
           <div className="nav-item" onClick={() => navigate("/settings")}>
             <span className="icon">
               <svg
@@ -285,7 +272,12 @@ export function Invoices() {
             <div className="upgrade-desc">
               Unlock advanced analytics, custom reports, and more.
             </div>
-            <button className="upgrade-btn">Upgrade Now</button>
+            <button
+              className="upgrade-btn"
+              onClick={() => navigate("/products")}
+            >
+              Upgrade Now
+            </button>
           </div>
           <div className="user-profile">
             <div className="avatar">JD</div>
