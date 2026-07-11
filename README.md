@@ -4,7 +4,7 @@
 
 ---
 
-![Metrica Dashboard Preview](./assets/metrica-screenshot.png)
+![Metrica Dashboard Preview](./src/assets/metrica-screenshot.png)
 
 ## 🚀 Live Demo
 
