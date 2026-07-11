@@ -1,77 +1,51 @@
-# React + TypeScript + Vite
+# Metrica SaaS Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A modern, responsive SaaS admin dashboard built with React, Recharts, and vanilla CSS. Designed for tracking key business metrics, managing customers, subscriptions, invoices, and more.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Metrica Dashboard Preview](./assets/metrica-screenshot.png)
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Check out the live version of the dashboard here:
 
-Note: This will impact Vite dev & build performances.
+👉 **[metrica-dashboard.vercel.app](https://metrica-dashboard.vercel.app)**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📋 Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Overview Page** – KPI cards, revenue chart, sparklines, recent signups, and MRR breakdown.
+- **Analytics Page** – Deep-dive metrics, traffic sources, and event tracking.
+- **Customers Page** – Searchable, filterable customer table with status badges.
+- **Subscriptions Page** – Active subscription ledger with billing cycles and next billing dates.
+- **Invoices Page** – Invoice table with statuses, outstanding balance doughnut chart, and recent payments list.
+- **Products Page** – Clean pricing card layout with feature lists and subscriber counts.
+- **Settings Page** – Fully interactive tabs for General, Profile, Billing, Team, Notifications, and Security.
+- **Mobile Responsive** – Fully adaptable layout for tablets and mobile phones.
+- **No external CSS frameworks** – Built entirely with vanilla CSS.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Built With
+
+- **React** – Component-based UI architecture
+- **Recharts** – Interactive charts and sparklines
+- **React Router** – Seamless page navigation
+- **Vanilla CSS** – Custom, lightweight styling
+- **SVG Icons** – Clean, scalable vector icons
+
+---
+
+## 📦 Installation & Usage
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/abedoulaye/metrica-dashboard
+   cd metrica-dashboard
+   ```
 
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 
 ```
