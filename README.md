@@ -45,7 +45,3 @@ Check out the live version of the dashboard here:
    git clone https://github.com/abedoulaye/metrica-dashboard
    cd metrica-dashboard
    ```
-
-```
-
-```
