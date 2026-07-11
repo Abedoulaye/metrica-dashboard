@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: #f8fafc;
   color: #1e293b;
 }
@@ -211,11 +212,11 @@ body {
 }
 
 .export-btn svg {
-  color: #475569; 
+  color: #475569;
 }
 
 .export-btn:hover svg {
-  color: #1e293b; 
+  color: #1e293b;
 }
 
 .page-title {
@@ -296,7 +297,6 @@ body {
   font-weight: 700;
   font-size: 14px;
   font-family: monospace;
-  
 }
 
 .kpi-value {
@@ -550,6 +550,7 @@ body {
   height: 120px;
   flex-shrink: 0;
   position: relative;
+  left: 15px;
 }
 
 .mock-doughnut {
@@ -589,58 +590,56 @@ body {
   color: #64748b;
 }
 
-
-
 @media (max-width: 1024px) {
   .kpi-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
   }
-  
+
   .kpi-grid-analytics {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
   }
-  
+
   .kpi-card {
     padding: 12px;
     max-height: 130px;
   }
-  
+
   .kpi-value {
     font-size: 20px;
   }
 
   .two-col-grid {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     gap: 16px;
     height: auto;
     flex: none;
   }
 
   .panel {
-    min-height: 250px; 
+    min-height: 250px;
     padding: 16px;
   }
 
   .doughnut-wrapper {
     gap: 16px;
   }
-  
+
   .mock-doughnut-container {
     width: 100px;
     height: 100px;
   }
-  
+
   .doughnut-hole {
     width: 60px;
     height: 60px;
   }
-  
+
   .doughnut-total {
     font-size: 12px;
   }
-  
+
   .doughnut-label {
     font-size: 9px;
   }
@@ -648,21 +647,20 @@ body {
   .header-right {
     gap: 8px;
   }
-  
+
   .main-content {
     padding: 20px 24px;
     gap: 16px;
   }
 }
 
-
 @media (max-width: 768px) {
   .app-container {
-    flex-direction: column; 
+    flex-direction: column;
     height: auto;
     overflow-y: auto;
   }
-  
+
   .sidebar {
     width: 100%;
     min-width: unset;
@@ -671,89 +669,89 @@ body {
     border-right: none;
     border-bottom: 1px solid #e2e8f0;
   }
-  
+
   .sidebar-bottom {
-    display: none; 
+    display: none;
   }
-  
+
   .main-content {
     height: auto;
     padding: 16px;
     overflow-y: visible;
     gap: 16px;
   }
-  
+
   .header-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .header-right {
     width: 100%;
     flex-wrap: wrap;
   }
-  
+
   .date-picker {
     flex: 1;
     min-width: 140px;
   }
-  
+
   .kpi-grid {
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
-  
+
   .kpi-grid-analytics {
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
-  
+
   .kpi-card {
-    max-height: none; 
+    max-height: none;
     padding: 12px;
   }
-  
+
   .kpi-value {
     font-size: 20px;
   }
-  
+
   .two-col-grid {
     grid-template-columns: 1fr;
     gap: 12px;
     height: auto;
     flex: none;
   }
-  
+
   .panel {
     padding: 12px;
   }
-  
+
   .doughnut-wrapper {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
   }
-  
+
   .mock-doughnut-container {
     width: 100px;
     height: 100px;
     align-self: center;
   }
-  
+
   .customer-table {
     font-size: 12px;
   }
-  
+
   .customer-table th,
   .customer-table td {
     padding: 8px 4px;
   }
-  
+
   .cust-name {
     gap: 4px;
   }
-  
+
   .kpi-sparkline {
     height: 24px;
     margin-top: 4px;
@@ -762,31 +760,31 @@ body {
 
 @media (max-width: 480px) {
   .kpi-grid {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
-  
+
   .kpi-grid-analytics {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
-  
+
   .header-right {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .export-btn {
     width: 100%;
     text-align: center;
   }
-  
+
   .date-picker {
     width: 100%;
   }
-  
+
   .page-title {
     font-size: 20px;
   }
-  
+
   .logo-text {
     font-size: 16px;
   }
@@ -864,6 +862,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+  grid-column: 1 / 2;
 }
 
 .pro-customer-table th {
@@ -895,7 +894,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #4f46e5; /* Your purple */
+  background: #4f46e5;
   color: white;
   display: flex;
   align-items: center;
@@ -996,4 +995,117 @@ body {
   font-weight: bold;
 }
 
+.status-pill.paid {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.status-pill.paid .status-dot {
+  background: #16a34a;
+}
 
+.status-pill.pending {
+  background: #fef9c3;
+  color: #a16207;
+}
+.status-pill.pending .status-dot {
+  background: #a16207;
+}
+
+.status-pill.overdue {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.status-pill.overdue .status-dot {
+  background: #dc2626;
+}
+
+.status-pill.draft {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.status-pill.draft .status-dot {
+  background: #64748b;
+}
+
+.two-col-grid-invoices {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  gap: 20px;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  margin-top: 10px;
+}
+
+.invoice-side-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.panel {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.panel-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4f46e5;
+  text-decoration: none;
+  margin-top: auto;
+  display: inline-block;
+}
+
+.panel-link:hover {
+  color: #4338ca;
+}
+
+.recent-payments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+}
+
+.payment-row:last-of-type {
+  border-bottom: none;
+}
+
+.payment-customer {
+  color: #475569;
+}
+
+.payment-amount {
+  font-weight: 600;
+}
+
+.payment-amount.paid {
+  color: #16a34a;
+}
+
+.payment-amount.pending {
+  color: #eab308;
+}
